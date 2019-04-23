@@ -39,7 +39,6 @@ class Members extends Component {
     }
 
     selectUser = (name) => {
-        console.log('yo');
         this.setState({ user: name });
     }
 
@@ -48,12 +47,12 @@ class Members extends Component {
         if (Array.isArray(this.state.users) && this.state.users.length === 0) return null;
         return (
             <>
-                <Jumbotron>
+                <Jumbotron id="members">
                     <div className="members-container">
                         <div className="members-list">
                             {this.state.users.map((users, index) => {
                             return (
-                                <Card className="member-card" onClick={() => this.selectUser(users.login)}>
+                                <Card key={index} className="member-card" onClick={() => this.selectUser(users.login)}>
                                     <Card.Img variant="top" src={users.avatarUrl} />
                                 </Card>
                             )

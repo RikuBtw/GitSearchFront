@@ -3,7 +3,6 @@ import { Jumbotron } from 'react-bootstrap';
 
 import Header from './component/Header/Header'
 import Organizations from './component/Organization/Organizations'
-import Members from './component/Members/Members'
 
 import './App.css'
 import 'font-awesome/css/font-awesome.min.css';
@@ -19,9 +18,7 @@ class App extends Component {
           <h1>Hello, user!</h1>
           <h2>Hello, user!</h2>
         </Jumbotron>
-         <Organizations/>
-        <Members organization='google'/>
-        
+        <Organizations/>      
       </>
     );
   }

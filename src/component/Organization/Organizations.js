@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import './Organizations.css'
-import OrgCard from './Card/Card'
+import './Organizations.css';
+import OrgCard from './Card/Card';
+import Members from './Members/Members';
 
 class Organizations extends Component {
     constructor() {
         super();
         this.state = {
             organizations: [],
+            selectedOrganization : "",
         }
     }
     
     componentDidMount() {
         fetch(process.env.REACT_APP_API_HOST + '/user/rikubtw/organizations')
             .then((result) => {
-                console.log(this.apiURL)
                 return result.json();
             }).then(data => {
                 this.setState({ organizations: data });
@@ -44,25 +45,40 @@ class Organizations extends Component {
             const x = e.pageX - slider.offsetLeft;
             const walk = (x - startX) * 1; //scroll-fast
             slider.scrollLeft = scrollLeft - walk;
-            console.log(walk);
         });
     }
 
-
-
+    displayMembers = (name) => {
+        this.setState({ selectedOrganization: name })
+    }
 
     render() {
         return (
-            <div className="organization-container">
-                <h2>
-                    My organizations
-                </h2>
-                <div className="organization-list">
-                {this.state.organizations.map((organization, index) => {
-                    return (<OrgCard key={index} name={organization.name}></OrgCard>)
-                })}
+            <>
+                <div className="organization-container">
+                    <h2>
+                        My organizations
+                    </h2>
+                    <div className="organization-list">
+                    {this.state.organizations.map((organization, index) => {
+                        return (
+                        <div onClick={() => this.displayMembers(organization.name)}>
+                            <OrgCard 
+                                key = {index} 
+                                name = {organization.name}>
+                            </OrgCard>
+                        </div>
+                        )
+                    })}
+                    </div>
                 </div>
-            </div>
+                { this.state.selectedOrganization &&
+                    <Members 
+                        key = {this.state.selectedOrganization} 
+                        organization = {this.state.selectedOrganization}>
+                    </Members>
+                }
+            </>
         );
     }
 }
