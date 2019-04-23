@@ -1,0 +1,9 @@
+.organization-list{
+  margin-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.organization-container{
+  padding-left: 80px;
+  padding-right: 80px;
+}

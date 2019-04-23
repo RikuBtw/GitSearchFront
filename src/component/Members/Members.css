@@ -1,0 +1,36 @@
+.member-card{
+    height: 150px;
+    width: 150px;
+    margin: 5px;
+    filter: grayscale(100%);
+}
+.member-card:hover{
+    filter: grayscale(0%);
+    cursor: pointer;
+}
+.members-container{
+    display: flex;
+    flex-direction: row;
+}
+.members-list{
+    overflow:auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 66.66%;
+    max-height: 550px;
+    overflow: auto;
+}
+.members-info{
+    width: 33.33%;
+}
+
+.members-not-selected{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+}
