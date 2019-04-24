@@ -10,15 +10,20 @@ import 'font-awesome/css/font-awesome.min.css';
 
 class App extends Component {
 
+  constructor() {
+    super();
+    this.user = "rikubtw"
+  }
+
   render() {
     return (
       <>
         <Header/>
         <Jumbotron>
-          <h1>Hello, user!</h1>
+          <h1>Hello, {this.user}!</h1>
           <h2>Hello, user!</h2>
         </Jumbotron>
-        <Organizations/>      
+        <Organizations user={this.user}/>      
       </>
     );
   }

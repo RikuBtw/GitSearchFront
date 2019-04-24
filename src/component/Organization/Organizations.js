@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
+
 import './Organizations.css';
 import OrgCard from './Card/Card';
 import Members from './Members/Members';
 
 class Organizations extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             organizations: [],
             selectedOrganization : "",
         }
+        this.membersRef = React.createRef();
     }
     
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/user/rikubtw/organizations')
+        fetch(process.env.REACT_APP_API_HOST + '/user/'+ this.props.user +'/organizations')
             .then((result) => {
                 return result.json();
             }).then(data => {
@@ -50,6 +52,11 @@ class Organizations extends Component {
 
     displayMembers = (name) => {
         this.setState({ selectedOrganization: name })
+        this.membersRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+        });
     }
 
     render() {
@@ -62,7 +69,7 @@ class Organizations extends Component {
                     <div className="organization-list">
                     {this.state.organizations.map((organization, index) => {
                         return (
-                        <div onClick={() => this.displayMembers(organization.name)}>
+                            <div onClick={() => this.displayMembers(organization.name)} key={organization.name}>
                             <OrgCard 
                                 key = {index} 
                                 name = {organization.name}>
@@ -72,12 +79,14 @@ class Organizations extends Component {
                     })}
                     </div>
                 </div>
+                <div ref={this.membersRef}>
                 { this.state.selectedOrganization &&
                     <Members 
                         key = {this.state.selectedOrganization} 
                         organization = {this.state.selectedOrganization}>
                     </Members>
                 }
+                </div>
             </>
         );
     }
