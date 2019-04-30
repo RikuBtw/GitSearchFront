@@ -19,11 +19,15 @@ class App extends Component {
     return (
       <>
         <Header/>
-        <Jumbotron>
-          <h1>Hello, {this.user}!</h1>
-          <h2>Hello, user!</h2>
-        </Jumbotron>
-        <Organizations user={this.user}/>      
+        <main>
+          <Jumbotron>
+            <div id='profile' className="anchor"></div>
+            <h1>Hello, {this.user}!</h1>
+            <h2>Hello, user!</h2>
+          </Jumbotron>
+          <Organizations user={this.user}/>      
+        </main>
+        <footer className="bg-light">test footer</footer>
       </>
     );
   }

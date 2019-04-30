@@ -1,0 +1,16 @@
+.anchor {
+  position: absolute;
+  top: -70px;
+}
+.anchor-after {
+  position: absolute;
+  top: 300px;
+}
+
+footer {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 15px;
+}

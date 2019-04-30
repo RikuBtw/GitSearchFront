@@ -63,7 +63,6 @@ class Members extends Component {
                         </div>
                         <div className='members-info'>
                             {this.state.user !== "" && <User key={this.state.user} name={this.state.user}></User>}
-                            {!this.state.user !== "" && <div className="members-not-selected">{"<--"} Click on one member to see their stats ;)</div>}
                         </div>
                     </div>
                 </Jumbotron>

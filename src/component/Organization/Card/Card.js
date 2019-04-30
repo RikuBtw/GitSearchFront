@@ -22,7 +22,7 @@ class OrgCard extends Component {
         if (!this.state.organization) return null;
         if (Array.isArray(this.state.organization) && this.state.organization.length === 0) return null;
         return( 
-            <Card title={this.state.organization.description} className="org-card">
+            <Card title={this.state.organization.description}>
                 <Card.Img className="org-img" variant="top" src={this.state.organization.avatarUrl} />
                 <Card.Body>
                     <a href={this.state.organization.url} target="_blank" rel="noopener noreferrer">

@@ -4,6 +4,22 @@
   white-space: nowrap;
 }
 .organization-container{
+  position: relative;
   padding-left: 80px;
   padding-right: 80px;
+}
+.member-container{
+  position: relative;
+}
+
+.org-card{
+    margin: 10px;
+    width: 250px;
+    display: inline-block;
+}
+.org-card:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 9px 10px 0px 0px rgba(0,0,0,0.14);
+    -moz-box-shadow: 9px 10px 0px 0px rgba(0,0,0,0.14);
+    box-shadow: 9px 10px 0px 0px rgba(0,0,0,0.14);
 }

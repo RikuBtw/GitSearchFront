@@ -61,31 +61,33 @@ class Organizations extends Component {
 
     render() {
         return (
-            <>
+            <>  
                 <div className="organization-container">
+                    <div id="organization" className="anchor"></div>
                     <h2>
-                        My organizations
+                        My Organizations
                     </h2>
                     <div className="organization-list">
                     {this.state.organizations.map((organization, index) => {
                         return (
-                            <div onClick={() => this.displayMembers(organization.name)} key={organization.name}>
-                            <OrgCard 
-                                key = {index} 
-                                name = {organization.name}>
-                            </OrgCard>
-                        </div>
+                            <div className="org-card" onClick={() => this.displayMembers(organization.name)} key={organization.name}>
+                                <OrgCard 
+                                    key = {index} 
+                                    name = {organization.name}>
+                                </OrgCard>
+                            </div>
                         )
                     })}
                     </div>
                 </div>
-                <div ref={this.membersRef}>
-                { this.state.selectedOrganization &&
-                    <Members 
-                        key = {this.state.selectedOrganization} 
-                        organization = {this.state.selectedOrganization}>
-                    </Members>
-                }
+                <div className="member-container">
+                    <div ref={this.membersRef} className="anchor-after"></div>
+                    { this.state.selectedOrganization &&
+                        <Members 
+                            key = {this.state.selectedOrganization} 
+                            organization = {this.state.selectedOrganization}>
+                        </Members>
+                    }
                 </div>
             </>
         );
