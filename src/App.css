@@ -4,7 +4,7 @@
 }
 .anchor-after {
   position: absolute;
-  top: 300px;
+  top: 70px;
 }
 
 footer {
@@ -13,4 +13,28 @@ footer {
     justify-content: center;
     align-items: flex-end;
     padding: 15px;
+}
+
+.loading-helper{
+  display: flex;
+  height: 252px;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-loading{
+  height: 160px;
+  background-color: #d8d8d8;
+}
+
+.text-loading{
+    height: 20px;
+    width: 100px;
+    background-color: #d8d8d8;
+    margin: 5px;
+    border-radius: 99em;
+}
+
+.jumbotron {
+  background-color: #ecf0f1 !important;
 }

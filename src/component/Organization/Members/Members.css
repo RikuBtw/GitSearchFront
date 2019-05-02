@@ -1,3 +1,6 @@
+#members{
+    min-height: 400px;
+}
 .member-card{
     height: 150px;
     width: 150px;

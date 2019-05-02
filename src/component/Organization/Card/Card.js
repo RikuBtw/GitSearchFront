@@ -7,6 +7,8 @@ class OrgCard extends Component {
         super(props);
         this.state = {
             organization: [],
+            isLoading: true,
+            empty: false,
         }
     }
     componentDidMount() {
@@ -14,26 +16,49 @@ class OrgCard extends Component {
             .then((result) => {
                 return result.json();
             }).then(data => {
+                if (data.errors) {
+                    this.setState({ isLoading: false });
+                    this.setState({ empty: true });
+                    return;
+                }
                 this.setState({ organization: data.data.organization});
+                this.setState({ isLoading: false });
             })
     }
 
     render() {
+        if (this.state.empty) return null;
         if (!this.state.organization) return null;
-        if (Array.isArray(this.state.organization) && this.state.organization.length === 0) return null;
         return( 
-            <Card title={this.state.organization.description}>
-                <Card.Img className="org-img" variant="top" src={this.state.organization.avatarUrl} />
-                <Card.Body>
-                    <a href={this.state.organization.url} target="_blank" rel="noopener noreferrer">
-                     <Card.Title>{this.state.organization.name}</Card.Title>
-                    </a>
-                    <Card.Subtitle className="mb-2 text-muted">{this.state.organization.location}</Card.Subtitle>
-                </Card.Body>
-                {this.state.organization.email && <Card.Footer>
-                    <small className="text-muted">{this.state.organization.email}</small>
-                </Card.Footer>}
-            </Card>
+            <>
+                { this.state.isLoading && 
+                    <div className="org-card">
+                        <Card>
+                            <div className="img-loading"></div>
+                            <Card.Body>
+                                <div className="text-loading"></div>
+                                <div className="text-loading"></div>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                }
+                { !this.state.isLoading &&
+                    <div className="org-card" onClick={() => this.props.displayMembers()}>
+                        <Card title={this.state.organization.description}>
+                            <Card.Img className="org-img" variant="top" src={this.state.organization.avatarUrl} />
+                            <Card.Body>
+                                <a href={this.state.organization.url} target="_blank" rel="noopener noreferrer">
+                                <Card.Title>{this.state.organization.name}</Card.Title>
+                                </a>
+                                <Card.Subtitle className="mb-2 text-muted">{this.state.organization.location}</Card.Subtitle>
+                            </Card.Body>
+                            {this.state.organization.email && <Card.Footer>
+                                <small className="text-muted">{this.state.organization.email}</small>
+                            </Card.Footer>}
+                        </Card>
+                    </div>
+                }
+            </>
         );
     }
 }

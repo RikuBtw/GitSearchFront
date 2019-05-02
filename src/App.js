@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor() {
     super();
-    this.user = "rikubtw"
+    this.user = "fabpot"
   }
 
   render() {
@@ -22,8 +22,10 @@ class App extends Component {
         <main>
           <Jumbotron>
             <div id='profile' className="anchor"></div>
-            <h1>Hello, {this.user}!</h1>
-            <h2>Hello, user!</h2>
+            <div style={{ height: '400px' }}>
+              <h1>Hello, {this.user}!</h1>
+              <h2>Hello, user!</h2>
+            </div>
           </Jumbotron>
           <Organizations user={this.user}/>      
         </main>

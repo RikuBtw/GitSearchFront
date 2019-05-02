@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from 'react-bootstrap/Spinner'
 
 import './Organizations.css';
 import OrgCard from './Card/Card';
@@ -10,18 +11,33 @@ class Organizations extends Component {
         this.state = {
             organizations: [],
             selectedOrganization : "",
+            isLoading: true,
         }
         this.membersRef = React.createRef();
     }
-    
+        
     componentDidMount() {
         fetch(process.env.REACT_APP_API_HOST + '/user/'+ this.props.user +'/organizations')
             .then((result) => {
                 return result.json();
             }).then(data => {
                 this.setState({ organizations: data });
+                this.setState({ isLoading: false });
             })
 
+        this.scrollableDiv();
+    }
+
+    displayMembers = (name) => {
+        this.setState({ selectedOrganization: name })
+        this.membersRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+        });
+    }
+
+    scrollableDiv = () => {
         const slider = document.querySelector('.organization-list');
         let isDown = false;
         let startX;
@@ -50,15 +66,6 @@ class Organizations extends Component {
         });
     }
 
-    displayMembers = (name) => {
-        this.setState({ selectedOrganization: name })
-        this.membersRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-            inline: 'center',
-        });
-    }
-
     render() {
         return (
             <>  
@@ -67,15 +74,21 @@ class Organizations extends Component {
                     <h2>
                         My Organizations
                     </h2>
+                    { this.state.isLoading && 
+                        <div class="loading-helper">
+                            <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
+                        </div>
+                    }
                     <div className="organization-list">
                     {this.state.organizations.map((organization, index) => {
                         return (
-                            <div className="org-card" onClick={() => this.displayMembers(organization.name)} key={organization.name}>
-                                <OrgCard 
-                                    key = {index} 
-                                    name = {organization.name}>
-                                </OrgCard>
-                            </div>
+                            <OrgCard 
+                                displayMembers={() => this.displayMembers(organization.name)}
+                                key = {index} 
+                                name = {organization.name}>
+                            </OrgCard>
                         )
                     })}
                     </div>

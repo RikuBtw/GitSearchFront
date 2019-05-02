@@ -4,6 +4,7 @@
   white-space: nowrap;
 }
 .organization-container{
+  min-height: 298px;
   position: relative;
   padding-left: 80px;
   padding-right: 80px;
