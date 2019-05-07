@@ -12,10 +12,26 @@ class App extends Component {
 
   constructor() {
     super();
-    this.user = "fabpot"
+    this.state = {
+      login: "",
+    }
   }
 
+  componentDidMount() {
+        this.context.router.push(process.env.REACT_APP_API_HOST + '/viewer')
+
+        fetch(process.env.REACT_APP_API_HOST + '/viewer')
+            .then((result) => {
+                console.log(result)
+                return result.json();
+            }).then(data => {
+              console.log(data)
+              this.setState({ login: data.viewer });
+            })
+    }
+
   render() {
+    if(!this.state.user) return null;
     return (
       <>
         <Header/>
@@ -23,11 +39,11 @@ class App extends Component {
           <Jumbotron>
             <div id='profile' className="anchor"></div>
             <div style={{ height: '400px' }}>
-              <h1>Hello, {this.user}!</h1>
+              <h1>Hello, {this.state.login}!</h1>
               <h2>Hello, user!</h2>
             </div>
           </Jumbotron>
-          <Organizations user={this.user}/>      
+          <Organizations user={this.state.login}/>      
         </main>
         <footer className="bg-light">test footer</footer>
       </>
