@@ -12,7 +12,7 @@ class User extends Component {
     }
 
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/user/' + this.props.name)
+        fetch(process.env.REACT_APP_API_HOST + '/member/' + this.props.login)
             .then((result) => {
                 return result.json();
             }).then(data => {

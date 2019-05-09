@@ -1,0 +1,40 @@
+.viewer-container {
+    min-height: 400px;
+    display: flex;
+    flex-direction: row;
+}
+
+.viewer-col1 {
+    display: flex;
+    flex-direction: column;
+    width: 66%;
+    align-items: center;
+    justify-content: center;
+}
+.viewer-col1 h1{
+    font-size: 4em;
+}
+.viewer-avatar {
+    height: 180px;
+    width: 180px;
+}
+.viewer-col2 {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.viewer-card-container {
+    display: flex;
+    flex-direction: row;
+}
+.viewer-card-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    padding: 10px;
+}
+.viewer-card-stats p {
+    margin : 0;
+}

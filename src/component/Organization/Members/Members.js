@@ -18,7 +18,7 @@ class Members extends Component {
     }
 
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/organization/'+this.props.organization+'/users')
+        fetch(process.env.REACT_APP_API_HOST + '/organization/'+this.props.organization+'/members')
             .then((result) => {
                 return result.json();
             }).then(data => {
@@ -32,7 +32,7 @@ class Members extends Component {
     loadMore = () => {
         if(!this.state.hasNext) return;
         this.setState({ userLoading: true });
-        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.organization +'/users?after='+this.state.next)
+        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.organization +'/members?after='+this.state.next)
             .then((result) => {
                 return result.json();
             }).then(data => {
@@ -87,7 +87,7 @@ class Members extends Component {
                             }
                         </div>
                         <div className='members-info'>
-                            {this.state.user !== "" && <User key={this.state.user} name={this.state.user}></User>}
+                            {this.state.user !== "" && <User key={this.state.user} login={this.state.user}></User>}
                         </div>
                     </div>
                 </Jumbotron>

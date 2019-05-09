@@ -17,7 +17,7 @@ class Organizations extends Component {
     }
         
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/user/'+ this.props.user +'/organizations')
+        fetch(process.env.REACT_APP_API_HOST + '/organizations')
             .then((result) => {
                 return result.json();
             }).then(data => {
