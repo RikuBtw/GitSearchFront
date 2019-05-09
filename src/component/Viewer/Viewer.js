@@ -26,11 +26,15 @@ class Viewer extends Component {
         return (
             <>  
                 { this.state.isLoading && 
-                    <div class="loading-helper">
-                        <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </Spinner>
+                    <Jumbotron>
+                    <div className="viewer-loading-container">
+                        <div className="loading-helper">
+                            <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
+                        </div>
                     </div>
+                    </Jumbotron>
                 }
                 { !this.state.isLoading && 
                     <Jumbotron>
@@ -42,10 +46,10 @@ class Viewer extends Component {
                         </div>
 
                         <div className="viewer-col2">
-                            <h2>Lastest repository updates</h2>
+                            <h1>Lastest repository updates</h1>
                             {this.state.user.repositories.edges.reverse().map((repository, index) => {
                                 return (
-                                    <>
+                                    <div key={index}>
                                         <Card>
                                             <div className="viewer-card-container">
                                                 <Card.Body>
@@ -59,12 +63,12 @@ class Viewer extends Component {
                                                     </Card.Subtitle>
                                                 </Card.Body>
                                                 <div className="viewer-card-stats">
-                                                    <p>{repository.node.forkCount} <i class="fas fa-code-branch"></i></p> 
-                                                    <p>{repository.node.stargazers.totalCount} <i class="fas fa-star"></i></p>
+                                                    <p>{repository.node.forkCount} <i className="fas fa-code-branch"></i></p> 
+                                                    <p>{repository.node.stargazers.totalCount} <i className="fas fa-star"></i></p>
                                                 </div>
                                             </div>
                                         </Card>
-                                    </>
+                                    </div>
                                 )
                             })}
                         </div>

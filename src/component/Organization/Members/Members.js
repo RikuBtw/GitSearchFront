@@ -53,7 +53,7 @@ class Members extends Component {
             <>
                 <Jumbotron id="members" classNames="bg-primary">
                     { this.state.isLoading && 
-                        <div class="loading-helper">
+                        <div className="loading-helper">
                             <Spinner animation="border" role="status">
                                 <span className="sr-only">Loading...</span>
                             </Spinner>

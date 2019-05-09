@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Spinner from 'react-bootstrap/Spinner'
+import { Spinner } from 'react-bootstrap';
 
 import './Organizations.css';
 import OrgCard from './Card/Card';
@@ -24,8 +24,9 @@ class Organizations extends Component {
                 this.setState({ organizations: data });
                 this.setState({ isLoading: false });
             })
-
-        this.scrollableDiv();
+        if (!this.state.isLoading) {
+            this.scrollableDiv();
+        }
     }
 
     displayMembers = (name) => {
@@ -69,39 +70,50 @@ class Organizations extends Component {
     render() {
         return (
             <>  
-                <div className="organization-container">
-                    <div id="organization" className="anchor"></div>
-                    <h2>
-                        My Organizations
-                    </h2>
-                    { this.state.isLoading && 
-                        <div className="loading-helper">
-                            <Spinner animation="border" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </Spinner>
-                        </div>
-                    }
-                    <div className="organization-list">
-                    {this.state.organizations.map((organization, index) => {
-                        return (
-                            <OrgCard 
-                                displayMembers={() => this.displayMembers(organization.name)}
-                                key = {index} 
-                                name = {organization.name}>
-                            </OrgCard>
-                        )
-                    })}
+                { this.state.isLoading && 
+                    <div className="loading-helper">
+                        <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
                     </div>
-                </div>
-                <div className="member-container">
-                    <div ref={this.membersRef} className="anchor-after"></div>
-                    { this.state.selectedOrganization &&
-                        <Members 
-                            key = {this.state.selectedOrganization} 
-                            organization = {this.state.selectedOrganization}>
-                        </Members>
-                    }
-                </div>
+                }
+                { !this.state.isLoading && 
+                    <>
+                        <div className="organization-container">
+                            <div id="organization" className="anchor"></div>
+                            <h2>
+                                My Organizations
+                            </h2>
+                            { this.state.isLoading && 
+                                <div className="loading-helper">
+                                    <Spinner animation="border" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </Spinner>
+                                </div>
+                            }
+                            <div className="organization-list">
+                            {this.state.organizations.map((organization, index) => {
+                                return (
+                                    <OrgCard 
+                                        displayMembers={() => this.displayMembers(organization.name)}
+                                        key = {index} 
+                                        name = {organization.name}>
+                                    </OrgCard>
+                                )
+                            })}
+                            </div>
+                        </div>
+                        <div className="member-container">
+                            <div ref={this.membersRef} className="anchor-after"></div>
+                            { this.state.selectedOrganization &&
+                                <Members 
+                                    key = {this.state.selectedOrganization} 
+                                    organization = {this.state.selectedOrganization}>
+                                </Members>
+                            }
+                        </div>
+                    </>
+                }
             </>
         );
     }

@@ -1,5 +1,12 @@
+.viewer-loading-container {
+    min-height: 470px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .viewer-container {
-    min-height: 400px;
+    min-height: 470px;
     display: flex;
     flex-direction: row;
 }
@@ -22,6 +29,13 @@
     margin-left: 50px;
     display: flex;
     flex-direction: column;
+    padding: 10px;
+    border-radius: 2px;
+    background-color: #fff;
+}
+.viewer-col2 h1{
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 .viewer-card-container {
     display: flex;
