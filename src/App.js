@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Header from './component/Header/Header';
 import Viewer from './component/Viewer/Viewer';
 import Organizations from './component/Organization/Organizations';
 
@@ -25,7 +24,6 @@ class App extends Component {
     if (!this.state.login) return null;
     return (
       <>
-        {/* <Header/> */}
         <main>
           <Viewer login={this.state.login}/>      
           <Organizations login={this.state.login}/>      
