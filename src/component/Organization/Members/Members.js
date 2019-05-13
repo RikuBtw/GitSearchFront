@@ -18,21 +18,25 @@ class Members extends Component {
     }
 
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/organization/'+this.props.organization+'/members')
+        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.organization + '/members', { credentials: 'include' })
             .then((result) => {
                 return result.json();
             }).then(data => {
+                this.setState({ isLoading: false });
+                if (!data.data.organization) {
+                    this.setState({ error: true });
+                    return;
+                }
                 this.setState({ users: data.data.organization.membersWithRole.nodes });
                 this.setState({ hasNext: data.data.organization.membersWithRole.pageInfo.hasNextPage });
                 if (this.state.hasNext) this.setState({ next: data.data.organization.membersWithRole.pageInfo.endCursor });
-                this.setState({ isLoading: false });
             })
     }
 
     loadMore = () => {
         if(!this.state.hasNext) return;
         this.setState({ userLoading: true });
-        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.organization +'/members?after='+this.state.next)
+        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.organization +'/members?after='+this.state.next, { credentials: 'include'})
             .then((result) => {
                 return result.json();
             }).then(data => {
@@ -52,6 +56,11 @@ class Members extends Component {
         return (
             <>
                 <Jumbotron id="members" classNames="bg-primary">
+                    { this.state.error && 
+                        <div className="loading-helper">
+                           Not enough rights to display users
+                        </div>
+                    }
                     { this.state.isLoading && 
                         <div className="loading-helper">
                             <Spinner animation="border" role="status">
@@ -59,37 +68,44 @@ class Members extends Component {
                             </Spinner>
                         </div>
                     }
-                    <div className="members-container">
-                        <div className="members-list">
-                            {this.state.users.map((users, index) => {
-                            return (
-                                <Card key={index} className="member-card" onClick={() => this.selectUser(users.login)}>
-                                    <Card.Img variant="top" src={users.avatarUrl} />
-                                </Card>
-                            )
-                            })}
-                            { this.state.hasNext && !this.state.userLoading &&
-                                <Button onClick={this.loadMore}>
-                                    Load More
-                                </Button>
-                            }
-                            { this.state.hasNext && this.state.userLoading &&
-                                <Button variant="primary" disabled>
-                                    <Spinner
-                                    as="span"
-                                    animation="border"
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                    />
-                                    <span className="sr-only">Loading...</span>
-                                </Button>
-                            }
-                        </div>
-                        <div className='members-info'>
-                            {this.state.user !== "" && <User key={this.state.user} login={this.state.user}></User>}
-                        </div>
-                    </div>
+                    { !this.state.isLoading && 
+                        <>
+                            <h2 className="title-underline">
+                                My co-workers
+                            </h2>
+                            <div className="members-container">
+                                <div className="members-list">
+                                    {this.state.users.map((users, index) => {
+                                    return (
+                                        <Card key={index} className="member-card" onClick={() => this.selectUser(users.login)}>
+                                            <Card.Img variant="top" src={users.avatarUrl} />
+                                        </Card>
+                                    )
+                                    })}
+                                    { this.state.hasNext && !this.state.userLoading &&
+                                        <Button className="members-button" onClick={this.loadMore}>
+                                            Load More
+                                        </Button>
+                                    }
+                                    { this.state.hasNext && this.state.userLoading &&
+                                        <Button className="members-button" disabled>
+                                            <Spinner
+                                            as="span"
+                                            animation="border"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                            />
+                                            <span className="sr-only">Loading...</span>
+                                        </Button>
+                                    }
+                                </div>
+                                <div className='members-info'>
+                                    {this.state.user !== "" && <User key={this.state.user} login={this.state.user}></User>}
+                                </div>
+                            </div>
+                        </>
+                    }
                 </Jumbotron>
             </>
         );

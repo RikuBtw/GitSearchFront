@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Spinner, Image, Card } from 'react-bootstrap';
 
-import './Viewer.css';;
+import './Viewer.css';
 
 class Viewer extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class Viewer extends Component {
     }
         
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/viewer')
+        fetch(process.env.REACT_APP_API_HOST + '/viewer', { credentials: 'include'})
             .then((result) => {
                 return result.json();
             }).then(data => {
@@ -23,13 +23,14 @@ class Viewer extends Component {
     }
 
     render() {
+        if(!this.state.user || this.state.user === []) return;
         return (
             <>  
                 { this.state.isLoading && 
-                    <Jumbotron>
+                    <Jumbotron className="blue">
                     <div className="viewer-loading-container">
                         <div className="loading-helper">
-                            <Spinner animation="border" role="status">
+                            <Spinner animation="border" role="status" className="white">
                                 <span className="sr-only">Loading...</span>
                             </Spinner>
                         </div>
@@ -37,7 +38,7 @@ class Viewer extends Component {
                     </Jumbotron>
                 }
                 { !this.state.isLoading && 
-                    <Jumbotron>
+                    <Jumbotron className="blue">
                     <div className="viewer-container">
                         <div className="viewer-col1">
                             <div id='profile' className="anchor"></div>
@@ -46,7 +47,7 @@ class Viewer extends Component {
                         </div>
 
                         <div className="viewer-col2">
-                            <h1>Lastest repository updates</h1>
+                            <h2>Lastest repository updates</h2>
                             {this.state.user.repositories.edges.reverse().map((repository, index) => {
                                 return (
                                     <div key={index}>

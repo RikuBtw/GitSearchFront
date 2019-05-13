@@ -12,9 +12,8 @@ class OrgCard extends Component {
         }
     }
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.name)
+        fetch(process.env.REACT_APP_API_HOST + '/organization/' + this.props.login, { credentials: 'include' })
             .then((result) => {
-                console.log(result);
                 return result.json();
             }).then(data => {
                 if (data.errors) {
