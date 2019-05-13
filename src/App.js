@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Viewer from './component/Viewer/Viewer';
 import Organizations from './component/Organization/Organizations';
 import Organization from './component/Organization/Organization';
-import Login from './component/Login/Login';
 
 import { Navbar, Form, Button, FormControl } from 'react-bootstrap';
 
@@ -37,10 +36,6 @@ class App extends Component {
         this.setState({ login: data[0].token});
       }
     })
-  }
-
-  askLogin = () => {
-    return <Login/>
   }
 
   onChange = (event) => {
