@@ -23,7 +23,6 @@ class Repositories extends Component {
 
     render() {
         if (!this.state.repositories) return null;
-        console.log(this.state.repositories)
         return (
             <>
                 {this.state.isLoading &&
@@ -41,37 +40,39 @@ class Repositories extends Component {
                         <h2 className="title-underline white">
                                 Most starred Repositories
                             </h2>
-                            <div className="repo-list">
-                                {this.state.repositories.edges.map((repository, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <th className="repo-position">     
-                                                { '#' + (index + 1)}
-                                            </th>
-                                            <th className="repo-infos">
-                                                <h3>
-                                                    <a href={repository.node.url}>
-                                                        {repository.node.name}
-                                                    </a>
-                                                </h3>
-                                                <div className="repo-tag-container">
-                                                    {repository.node.languages.edges.map((language, index) => {
-                                                        return (
-                                                            <div className="repo-tag">
-                                                                {language.node.name}
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </th>
-                                            <th className="repo-stars">
-                                                {repository.node.stargazers.totalCount} 
-                                                <i className="fas fa-star"></i>
-                                            </th>
-                                        </tr>
-                                    )
-                                })}
-                            </div>
+                            <table className="repo-list">
+                                <tbody>
+                                    {this.state.repositories.edges.map((repository, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <th className="repo-position">     
+                                                    { '#' + (index + 1)}
+                                                </th>
+                                                <th className="repo-infos">
+                                                    <h3>
+                                                        <a href={repository.node.url}>
+                                                            {repository.node.name}
+                                                        </a>
+                                                    </h3>
+                                                    <div className="repo-tag-container">
+                                                        {repository.node.languages.edges.map((language, index) => {
+                                                            return (
+                                                                <div key={index} className="repo-tag">
+                                                                    {language.node.name}
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                </th>
+                                                <th className="repo-stars">
+                                                    {repository.node.stargazers.totalCount} 
+                                                    <i className="fas fa-star"></i>
+                                                </th>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
                     </Jumbotron>
                 }

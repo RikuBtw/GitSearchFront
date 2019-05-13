@@ -55,7 +55,7 @@ class Members extends Component {
         if (!this.state.users) return null;
         return (
             <>
-                <Jumbotron id="members" classNames="bg-primary">
+                <Jumbotron id="members">
                     { this.state.error && 
                         <div className="loading-helper">
                            Not enough rights to display users
@@ -71,7 +71,7 @@ class Members extends Component {
                     { !this.state.isLoading && 
                         <>
                             <h2 className="title-underline">
-                                My co-workers
+                                Company members
                             </h2>
                             <div className="members-container">
                                 <div className="members-list">

@@ -66,3 +66,8 @@
   background-color: #0abde3;
   color: white;
 }
+
+.justify-content-end {
+  display: flex;
+  justify-content: flex-end;
+}
