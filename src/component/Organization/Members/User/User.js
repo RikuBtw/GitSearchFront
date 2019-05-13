@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card } from 'react-bootstrap';
 import './User.css';
 
+import Contributions from './Contributions/Contributions'
+
 class User extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +14,7 @@ class User extends Component {
     }
 
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/user/' + this.props.name)
+        fetch(process.env.REACT_APP_API_HOST + '/member/' + this.props.login, { credentials: 'include' })
             .then((result) => {
                 return result.json();
             }).then(data => {
@@ -46,11 +48,7 @@ class User extends Component {
                             <Card.Subtitle className="mb-2 text-muted">{this.state.user.followers.totalCount} follower(s)</Card.Subtitle>
                             <Card.Text>{this.state.user.bio}</Card.Text>
                         </Card.Body>
-                        {this.state.user.websiteUrl && this.state.user.email &&<Card.Footer>
-                            <a href={this.state.user.websiteUrl} target="_blank" rel="noopener noreferrer">
-                                {this.state.user.websiteUrl}
-                            </a> { this.state.user.email  && " - " } {this.state.user.email}
-                        </Card.Footer>}
+                        <Contributions login={this.state.user.login}></Contributions>
                     </Card>
                 }
             </>

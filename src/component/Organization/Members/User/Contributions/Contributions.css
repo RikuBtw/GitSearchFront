@@ -1,0 +1,20 @@
+.contributions-container{
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contributions-container h3{
+    font-size: 1.3em;
+}
+
+.contribution-box a {
+    margin-right: 20px;
+}
+.contribution-box i {
+    margin-left: 5px;
+    font-size: 0.7em;
+}

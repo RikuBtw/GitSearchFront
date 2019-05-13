@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Spinner from 'react-bootstrap/Spinner'
+import { Spinner, Jumbotron } from 'react-bootstrap';
 
 import './Organizations.css';
 import OrgCard from './Card/Card';
 import Members from './Members/Members';
+import Repositories from './Repositories/Repositories';
 
 class Organizations extends Component {
     constructor(props) {
@@ -13,24 +14,25 @@ class Organizations extends Component {
             selectedOrganization : "",
             isLoading: true,
         }
-        this.membersRef = React.createRef();
+        this.orgRef = React.createRef();
     }
         
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_HOST + '/user/'+ this.props.user +'/organizations')
+        fetch(process.env.REACT_APP_API_HOST + '/organizations', { credentials: 'include' })
             .then((result) => {
                 return result.json();
             }).then(data => {
                 this.setState({ organizations: data });
                 this.setState({ isLoading: false });
             })
-
-        this.scrollableDiv();
+        if (!this.state.isLoading) {
+            this.scrollableDiv();
+        }
     }
 
     displayMembers = (name) => {
         this.setState({ selectedOrganization: name })
-        this.membersRef.current.scrollIntoView({
+        this.orgRef.current.scrollIntoView({
             behavior: 'smooth',
             block: 'center',
             inline: 'center',
@@ -69,39 +71,57 @@ class Organizations extends Component {
     render() {
         return (
             <>  
-                <div className="organization-container">
-                    <div id="organization" className="anchor"></div>
-                    <h2>
-                        My Organizations
-                    </h2>
-                    { this.state.isLoading && 
-                        <div class="loading-helper">
-                            <Spinner animation="border" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </Spinner>
-                        </div>
-                    }
-                    <div className="organization-list">
-                    {this.state.organizations.map((organization, index) => {
-                        return (
-                            <OrgCard 
-                                displayMembers={() => this.displayMembers(organization.name)}
-                                key = {index} 
-                                name = {organization.name}>
-                            </OrgCard>
-                        )
-                    })}
+                { this.state.isLoading && 
+                    <div className="loading-helper">
+                        <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
                     </div>
-                </div>
-                <div className="member-container">
-                    <div ref={this.membersRef} className="anchor-after"></div>
-                    { this.state.selectedOrganization &&
-                        <Members 
-                            key = {this.state.selectedOrganization} 
-                            organization = {this.state.selectedOrganization}>
-                        </Members>
-                    }
-                </div>
+                }
+                { !this.state.isLoading && 
+                    <>
+                        <Jumbotron>
+                            <div id="organization" className="anchor"></div>
+                            <h2 className="title-underline">
+                                My Organizations
+                            </h2>
+                            { this.state.isLoading && 
+                                <div className="loading-helper">
+                                    <Spinner animation="border" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </Spinner>
+                                </div>
+                            }
+                            <div className="organization-list">
+                            {this.state.organizations.map((organization, index) => {
+                                return (
+                                    <OrgCard 
+                                        displayMembers={() => this.displayMembers(organization.login)}
+                                        key = {index} 
+                                        login = {organization.login}>
+                                    </OrgCard>
+                                )
+                            })}
+                            </div>
+                        </Jumbotron>
+                        
+                        <div ref={this.orgRef}></div>
+                        {this.state.selectedOrganization &&
+                            <Repositories
+                                key={this.state.selectedOrganization}
+                                organization={this.state.selectedOrganization}>
+                            </Repositories>
+                        }
+                        <div className="member-container">
+                            { this.state.selectedOrganization &&
+                                <Members 
+                                    key = {this.state.selectedOrganization} 
+                                    organization = {this.state.selectedOrganization}>
+                                </Members>
+                            }
+                        </div>
+                    </>
+                }
             </>
         );
     }
