@@ -7,14 +7,6 @@
   top: 70px;
 }
 
-footer {
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding: 15px;
-}
-
 .loading-helper{
   display: flex;
   height: 252px;
@@ -64,4 +56,13 @@ footer {
 }
 .title-underline.white::after{
   background-color: white;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 15px;
+  background-color: #0abde3;
+  color: white;
 }

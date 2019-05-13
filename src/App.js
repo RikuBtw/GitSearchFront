@@ -22,7 +22,10 @@ class App extends Component {
     .then((result) => {
       return result.json();
     }).then(data => {
-      if(data.error) return;
+      if(data.error) {
+        this.setState({ login: false });
+        return;
+      }
       if (data && data[0] && data[0].token) {
         this.setState({ login: data[0].token});
       }
@@ -30,7 +33,6 @@ class App extends Component {
   }
   
   render() {
-    console.log(this.state.login)
     if (!this.state.login) return(
       <>
         <Login/>
@@ -42,7 +44,7 @@ class App extends Component {
           <Viewer/>      
           <Organizations/>      
         </main>
-        <footer className="bg-light">test footer</footer>
+        <footer className="footer">GitSearch 2019</footer>
       </>
     );
   }

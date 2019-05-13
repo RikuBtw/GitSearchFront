@@ -44,7 +44,7 @@ class Repositories extends Component {
                             <div className="repo-list">
                                 {this.state.repositories.edges.map((repository, index) => {
                                     return (
-                                        <tr>
+                                        <tr key={index}>
                                             <th className="repo-position">     
                                                 { '#' + (index + 1)}
                                             </th>
